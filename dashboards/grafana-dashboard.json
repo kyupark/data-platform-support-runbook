@@ -1,0 +1,51 @@
+{
+  "title": "Data Platform Support Overview",
+  "schemaVersion": 38,
+  "version": 1,
+  "timezone": "browser",
+  "tags": ["data-platform", "support", "incident-triage"],
+  "panels": [
+    {
+      "title": "Ingestion Lag by Source",
+      "type": "timeseries",
+      "description": "Minutes since latest event per source. Alert when lag exceeds agreed threshold.",
+      "targets": [
+        {"refId": "A", "expr": "data_platform_ingestion_lag_minutes{source=~\"$source\"}"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "m", "thresholds": {"steps": [{"color": "green"}, {"color": "orange", "value": 30}, {"color": "red", "value": 60}]}}}
+    },
+    {
+      "title": "Transformation Job Status",
+      "type": "stat",
+      "description": "Current status of scheduled transformation jobs.",
+      "targets": [
+        {"refId": "A", "expr": "data_platform_job_success{job=~\"$job\"}"}
+      ]
+    },
+    {
+      "title": "Curated Row Count vs Baseline",
+      "type": "timeseries",
+      "description": "Detect zero-row or abnormal-volume outputs by business date.",
+      "targets": [
+        {"refId": "A", "expr": "data_platform_curated_rows{dataset=~\"$dataset\"}"},
+        {"refId": "B", "expr": "data_platform_curated_rows_baseline{dataset=~\"$dataset\"}"}
+      ]
+    },
+    {
+      "title": "Data Quality Failures",
+      "type": "bargauge",
+      "description": "Nulls, duplicates, reconciliation deltas, and validation failures.",
+      "targets": [
+        {"refId": "A", "expr": "data_platform_quality_failures{dataset=~\"$dataset\", check=~\"$check\"}"}
+      ]
+    },
+    {
+      "title": "Open Incidents by Severity",
+      "type": "table",
+      "description": "Ticket feed summarizing active platform incidents and assigned owners.",
+      "targets": [
+        {"refId": "A", "expr": "support_open_incidents{service=\"data-platform\"}"}
+      ]
+    }
+  ]
+}
