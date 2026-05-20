@@ -2,6 +2,10 @@
 
 A compact case study showing how I approach L1/L2 support for a data-platform application: incident triage, SQL investigation, Grafana-style monitoring, data integrity checks, escalation criteria, and runbook documentation.
 
+![Mock Grafana-style data platform support dashboard](docs/assets/data-platform-support-dashboard-mock.png)
+
+Synthetic Grafana-style dashboard mock used to illustrate L1/L2 support triage: ingestion lag, failed transformation jobs, data quality checks, and incident status.
+
 This is a portfolio-safe synthetic project. The data, queries, incidents, and dashboards are fictional, but the workflow reflects real support operations patterns I used in regulated SaaS environments.
 
 ## Scenario
